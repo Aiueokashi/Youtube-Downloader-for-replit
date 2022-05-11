@@ -40,9 +40,9 @@ app.get('/api/ytdl/:youtubeId', async function(req, res) {
   }
   const destFilePath = path.resolve(__dirname, `./tmp/${youtubeId}.${fileType}`);
   let info = await ytdl.getInfo(youtubeId);
-  let title = await youtube.getVideo(info.videoDetails.video_url);
+  let data = await youtube.getVideo(info.videoDetails.video_url);
   if (fs.existsSync(destFilePath)) {
-    res.download(destFilePath, title.title)
+    res.download(destFilePath, data.title)
     return;
   }
   let stream = null;
@@ -56,8 +56,8 @@ app.get('/api/ytdl/:youtubeId', async function(req, res) {
         res.status(400).send('download error!');
       })
       .on('end', () => {
-        console.log(`youtube file (${youtubeId}.${fileType}) downloaded.`);
-        res.download(destFilePath, title.title);
+        console.log(`${youtubeId}.${fileType} downloaded.`);
+        res.download(destFilePath, data.title);
         return;
       });
   } else {
@@ -68,8 +68,8 @@ app.get('/api/ytdl/:youtubeId', async function(req, res) {
       res.status(400).send('download error!');
     });
     stream.on('end', () => {
-      console.log(`youtube file (${youtubeId}.${fileType}) downloaded.`);
-      res.status(200).download(destFilePath, title.title);
+      console.log(`${youtubeId}.${fileType} downloaded.`);
+      res.download(destFilePath, data.title);
 
       return;
     })
