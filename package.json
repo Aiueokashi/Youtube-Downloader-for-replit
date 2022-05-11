@@ -11,6 +11,7 @@
     "ffmpeg": "0.0.4",
     "ffmpeg-static": "^4.3.0",
     "fluent-ffmpeg": "^2.1.2",
+    "node-cron": "^3.0.0",
     "pug": "^3.0.2",
     "simple-youtube-api": "^5.2.1",
     "ytdl": "^1.4.1",
